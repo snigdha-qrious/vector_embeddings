@@ -1,4 +1,5 @@
 import os
+import streamlit as st 
 from langchain.document_loaders import TextLoader
 from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.text_splitter import CharacterTextSplitter
@@ -15,20 +16,22 @@ from langchain.document_loaders.csv_loader import CSVLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 import time
 from langchain.embeddings import HuggingFaceEmbeddings
+from sentence_transformers import SentenceTransformer
 
+relative_file_path = "work_data.csv"
 
 print("Script is running")
 os.environ['OPENAI_API_KEY'] = "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"
 
-loader = CSVLoader(file_path="C:/Users/Snigdha Mundra/Documents/Dummy Data/work_dummy_data.csv")
+loader = CSVLoader(file_path=relative_file_path)
 data = loader.load()
 
-#start_time = time.time()
-#text_splitter_csv = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=20)
-#all_splits_csv = text_splitter_csv.split_documents(data)
-#end_time = time.time()
-#elapsed_time = end_time - start_time
-#print(f"Time taken: {elapsed_time} seconds")
+start_time = time.time()
+text_splitter_csv = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=20)
+all_splits_csv = text_splitter_csv.split_documents(data)
+end_time = time.time()
+elapsed_time = end_time - start_time
+print(f"Time taken: {elapsed_time} seconds")
 
 vector_store2 = FAISS.from_documents(data, HuggingFaceEmbeddings())
 retriever2 = vector_store2.as_retriever()
@@ -50,4 +53,4 @@ chain = (
 )
 
 result = llm_chain.invoke("How many software engineers are there? ")
-print(result)
+st.write(result)
