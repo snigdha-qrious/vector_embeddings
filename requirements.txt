@@ -1,3 +1,4 @@
 streamlit 
 langchain
+faiss-gpu
 sentence-transformers
