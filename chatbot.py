@@ -15,7 +15,7 @@ from langchain.document_loaders.csv_loader import CSVLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 import time
 from langchain.embeddings import HuggingFaceEmbeddings
-
+from sentence_transformers import SentenceTransformer
 
 print("Script is running")
 os.environ['OPENAI_API_KEY'] = "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"
