@@ -23,12 +23,12 @@ os.environ['OPENAI_API_KEY'] = "sk-SzS0RYrl0F0BcqKAZX9wT3BlbkFJlXS4nK9plHIoFEOX5
 loader = CSVLoader(file_path="C:/Users/Snigdha Mundra/Documents/Dummy Data/work_dummy_data.csv")
 data = loader.load()
 
-#start_time = time.time()
-#text_splitter_csv = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=20)
-#all_splits_csv = text_splitter_csv.split_documents(data)
-#end_time = time.time()
-#elapsed_time = end_time - start_time
-#print(f"Time taken: {elapsed_time} seconds")
+start_time = time.time()
+text_splitter_csv = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=20)
+all_splits_csv = text_splitter_csv.split_documents(data)
+end_time = time.time()
+elapsed_time = end_time - start_time
+print(f"Time taken: {elapsed_time} seconds")
 
 vector_store2 = FAISS.from_documents(data, HuggingFaceEmbeddings())
 retriever2 = vector_store2.as_retriever()
